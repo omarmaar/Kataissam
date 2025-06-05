@@ -1,12 +1,23 @@
+const { pathsToModuleNameMapper } = require("ts-jest")
+const { compilerOptions } = require("./tsconfig")
+
 module.exports = {
   preset: "jest-preset-angular",
   setupFilesAfterEnv: ["<rootDir>/setup-jest.ts"],
   globalSetup: "jest-preset-angular/global-setup",
-  testPathIgnorePatterns: ["<rootDir>/node_modules/", "<rootDir>/dist/"],
-  coverageDirectory: "coverage",
-  coverageReporters: ["html", "lcov", "text"],
-  moduleNameMapper: {
-    "^src/(.*)$": "<rootDir>/src/$1",
-    "^app/(.*)$": "<rootDir>/src/app/$1",
+  testEnvironment: "jsdom",
+  transform: {
+    "^.+\\.(ts|mjs|js|html)$": [
+      "jest-preset-angular",
+      {
+        tsconfig: "tsconfig.spec.json",
+        stringifyContentPathRegex: "\\.(html|svg)$",
+      },
+    ],
   },
+  transformIgnorePatterns: ["node_modules/(?!.*\\.mjs$)"],
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths || {}, {
+    prefix: "<rootDir>/",
+  }),
+  collectCoverageFrom: ["src/**/*.ts", "!src/**/*.spec.ts", "!src/main.ts", "!src/test.ts"],
 }

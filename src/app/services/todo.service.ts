@@ -1,5 +1,5 @@
-import { Injectable, signal } from "@angular/core"
-import type { HttpClient } from "@angular/common/http"
+import { Injectable, signal, inject } from "@angular/core"
+import { HttpClient } from "@angular/common/http"
 import { computed } from "@angular/core"
 import type { Todo } from "../models/todo.model"
 
@@ -7,6 +7,8 @@ import type { Todo } from "../models/todo.model"
   providedIn: "root",
 })
 export class TodoService {
+  private http = inject(HttpClient)
+
   // Using signals for state management
   private todosSignal = signal<Todo[]>([])
   private loadingSignal = signal<boolean>(false)
@@ -26,8 +28,6 @@ export class TodoService {
   public activeCount = computed(() => {
     return this.todosSignal().filter((todo) => !todo.completed).length
   })
-
-  constructor(private http: HttpClient) {}
 
   /**
    * Fetch todos from API

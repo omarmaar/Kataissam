@@ -1,7 +1,7 @@
-import { Component, type OnInit } from "@angular/core"
+import { Component, type OnInit, inject } from "@angular/core"
 import { CommonModule } from "@angular/common"
 import { FormsModule } from "@angular/forms"
-import type { TodoService } from "../../services/todo.service"
+import { TodoService } from "../../services/todo.service"
 import { TodoItemComponent } from "../todo-item/todo-item.component"
 import { SkeletonLoaderComponent } from "../skeleton-loader/skeleton-loader.component"
 
@@ -123,9 +123,8 @@ import { SkeletonLoaderComponent } from "../skeleton-loader/skeleton-loader.comp
   ],
 })
 export class TodoListComponent implements OnInit {
+  public todoService = inject(TodoService)
   newTodoTitle = ""
-
-  constructor(public todoService: TodoService) {}
 
   ngOnInit(): void {
     // Fetch todos when component initializes

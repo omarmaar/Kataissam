@@ -19,19 +19,12 @@
     "module": "ES2022",
     "useDefineForClassFields": false,
     "lib": ["ES2022", "dom"],
-    "skipLibCheck": true,
-    "paths": {
-      "@app/*": ["src/app/*"],
-      "@components/*": ["src/app/components/*"],
-      "@services/*": ["src/app/services/*"],
-      "@models/*": ["src/app/models/*"]
-    }
+    "skipLibCheck": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  },
-  "exclude": ["**/*.spec.ts"]
+  }
 }
